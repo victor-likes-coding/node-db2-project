@@ -25,3 +25,12 @@ exports.create = (car) => {
     .insert(car)
     .then(([id]) => this.getById(id));
 };
+
+/**
+ * @param {string} vin
+ * @returns {Promise<int>}
+ */
+
+exports.getByVin = async (vin) => {
+  return (await db('cars').where({ vin })).length;
+};
