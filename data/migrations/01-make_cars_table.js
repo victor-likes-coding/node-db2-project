@@ -1,9 +1,9 @@
 /**
  * @param {import('knex').Knex} knex
  */
-exports.up = function (knex) {
+exports.up = async function (knex) {
   // DO YOUR MAGIC
-  knex.schema.createTable('cars', (table) => {
+  await knex.schema.createTable('cars', (table) => {
     table.increments();
     table.string('vin', 17).unique().notNullable();
     table.string('make', 128).notNullable();
@@ -17,7 +17,7 @@ exports.up = function (knex) {
 /**
  * @param {import('knex').Knex} knex
  */
-exports.down = function (knex) {
+exports.down = async function (knex) {
   // DO YOUR MAGIC
-  knex.schema.dropTableIfExists('cars');
+  await knex.schema.dropTableIfExists('cars');
 };
