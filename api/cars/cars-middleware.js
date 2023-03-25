@@ -25,7 +25,7 @@ const checkCarId = async (req, res, next) => {
 const checkCarPayload = async (req, res, next) => {
   // DO YOUR MAGIC
   const carSchema = object({
-    vin: string().length(17).required('vin number is missing'),
+    vin: string().required('vin is missing'),
     make: string().required('make is missing'),
     model: string().required('model is missing'),
     mileage: number().required('mileage is missing'),
@@ -34,7 +34,7 @@ const checkCarPayload = async (req, res, next) => {
   });
 
   try {
-    await carSchema.validate(req.body, { stripUnknown: true, abortEarly: false });
+    await carSchema.validate(req.body, { abortEarly: false });
     next();
   } catch (err) {
     next({
@@ -48,7 +48,7 @@ const checkVinNumberValid = (req, res, next) => {
   // DO YOUR MAGIC
   const { vin } = req.body;
   if (!validate(vin)) {
-    return next({ status: 400, message: 'vin ${vin} is invalid' });
+    return next({ status: 400, message: `vin ${vin} is invalid` });
   }
 
   next();
